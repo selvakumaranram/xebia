@@ -1,12 +1,12 @@
 const express = require('express');
-const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
 
 
 //imported routes and others
-const pubproxy = require('./routes/pubproxy');
-const apiproxy = require('./routes/apiproxy');
+const pubproxy = require('./routes/pubproxy.router');
+const apiproxy = require('./routes/apiproxy.router');
 const app = express();
+
 const port = process.env.PORT || 4000;
 // Body parser middleware
 app.use(bodyParser.urlencoded({
@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
   app.use('*', (req, res) => {
     return res.status(404).json({
       success: false,
-      message: 'API endpoint doesnt exist'
+      message: 'url endpoint with pub/proxy or api/proxy only allowed'
     })
   });
 
