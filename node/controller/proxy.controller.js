@@ -23,7 +23,7 @@ exports.savefile = async (req, res) => {
    } */ 
      
     
-    const created=await fs.writeFileSync("${filename}.json", JSON.stringify(content));
+    const created=await fs.writeFileSync(`${filename}.json`, JSON.stringify(content));
     return res.status(422).json({"status-code":"422","message":"file sucessfully created",
 "response":created
 })
@@ -47,10 +47,13 @@ exports.readfile = async (req, res) => {
     // };
      
     
-    const created=await fs.readFile("${filename}.json");
-    return res.status(422).json({"status-code":"422","message":"file sucessfully created",
-"response":created
-})
+     
+    fs.readFile(`${filename}.json` ,"utf8",(err,data)=>{
+      if(err) return res.status(422).json({err})
+      return res.status(200).json({"status-code":"200","message":"file sucessfully created",
+      "response":data
+      })
+    })
 
     }catch(err){
         return res.status(422).json({"status-code":"422","message":"file not not exist or cannot be readed"}
@@ -64,10 +67,13 @@ exports.read = async (req, res) => {
       const id = req.params.id;
      
     
-    const readthefile=await fs.readFile("${id}.json");
-    return res.status(422).json({"status-code":"422","message":"file sucessfully created",
-"response":readthefile
-})
+     fs.readFile(`${id}.json` ,"utf8",(err,data)=>{
+      if(err) return res.status(422).json({err})
+      return res.status(200).json({"status-code":"200","message":"file sucessfully created",
+      "response":data
+      })
+    })
+
 
     }catch(err){
         return res.status(422).json({"status-code":"422","message":"file not not exist or cannot be readed"}

@@ -18,8 +18,8 @@ app.get('/', (req, res) => {
     res.send('Welcome Xerbians')
   })
 
-  app.use('pub/proxy', pubproxy);
-  app.use('api/proxy', apiproxy);
+  app.use('/pub/proxy', pubproxy);
+  app.use('/api/proxy', apiproxy);
   app.use('*', (req, res) => {
     return res.status(404).json({
       success: false,
